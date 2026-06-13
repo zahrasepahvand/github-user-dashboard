@@ -1,53 +1,125 @@
-.app-title {
-  font-size: 3rem;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 20px;
-  text-align: center;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.search-bar {
+body {
+  font-family: Arial, sans-serif;
+  padding: 30px;
+  background: #f0f2f5;
+}
+
+.user-profile-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+
+.search-area {
   display: flex;
+  gap: 10px;
   justify-content: center;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 }
 
-.search-input {
-  padding: 10px;
-  font-size: 1rem;
-  border: 2px solid #888;
-  border-radius: 4px 0 0 4px;
+input {
+  padding: 12px 15px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  width: 300px;
+}
+
+input:focus {
   outline: none;
-  width: 250px;
-  transition: border-color 0.3s ease;
+  border-color: #0066cc;
 }
 
-.search-input::placeholder {
-  color: #aaa;
-}
-
-.search-input:focus {
-  border-color: #005fcc;
-}
-
-.search-button {
-  padding: 10px 20px;
-  font-size: 1rem;
-  background-color: #005fcc;
+button {
+  padding: 12px 24px;
+  background: #0066cc;
   color: white;
   border: none;
-  border-radius: 0 4px 4px 0;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.search-button:hover {
-  background-color: #004bb5;
-}
+button:hover { background: #0052a3; }
+button:disabled { background: #ccc; cursor: not-allowed; }
 
-.typed-text {
-  font-size: 1.2rem;
-  color: #555;
+
+.profile-card {
   text-align: center;
-  margin-top: 10px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+img {
+  width: 120px;
+  border-radius: 50%;
+}
+
+.user-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+
+.repo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  list-style: none;
+}
+
+.repo-card {
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f5;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid #0066cc;
+}
+
+.repo-card a {
+  font-size: 18px;
+  font-weight: bold;
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.repo-card a:hover { text-decoration: underline; }
+.repo-card p {
+  margin: 10px 0;
+  color: #555;
+  font-size: 14px;
+}
+
+.repo-meta {
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.repo-meta span {
+  background: #e0e0e0;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+  body { padding: 15px; }
+  .user-profile-container { padding: 20px; }
+  .repo-grid { grid-template-columns: 1fr; }
+  .search-area { flex-direction: column; align-items: center; }
+  input { width: 100%; }
 }

@@ -14,63 +14,57 @@ function App() {
     if (!usernameInput.trim()) return;
     setSearchTerm(usernameInput.trim());
   }
- 
+
   return (
-    <div>
+    <div className="user-profile-container">
       <h1 className="app-title">GitHub User Dashboard</h1>
 
-    <div>
-      <input
-        value={usernameInput}
-        onChange={(e) => setUsernameInput(e.target.value)}
-        placeholder="Enter username."
-        onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-      />
-
-      <button onClick={handleSearch} disabled={userLoading}>
-        {userLoading ? 'Searching...' : 'Search'}
-      </button>
-    </div>
-
-    {userError && <p style={{ color: 'red' }}> {userError}</p>}
-
-    {userLoading && <p>Loading user...</p>}
-
-    {user && (
-      <div>
-        <img src={user.avatar_url} alt={user.login} width={100} />
-        <h2>{user.name || user.login}</h2>
-        <p style={{ color: '#222' }}>{user.bio}</p>
-        <p style={{ color: '#222' }}>Followers: {user.followers} | Following: {user.following}</p>
-        <p style={{ color: '#222' }}>Public Repos: {user.public_repos}</p>
+      <div className="search-area">
+        <input
+          value={usernameInput}
+          onChange={(e) => setUsernameInput(e.target.value)}
+          placeholder="Enter username."
+          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+        />
+        <button onClick={handleSearch} disabled={userLoading}>
+          {userLoading ? 'Searching...' : 'Search'}
+        </button>
       </div>
-    )}
 
-    {user && (
-    <>
-      <h2>Repositories</h2>
+      {userError && <p style={{ color: 'red' }}>{userError}</p>}
+      {userLoading && <p>Loading user...</p>}
 
-      {reposLoading && <p>Loading repositories...</p>}
-      {reposError && <p style={{ color: 'red' }}> {reposError}</p>}
-
-      {!reposLoading && !reposError && repos.length === 0 && (
-        <p>No repositories found.</p>
+      {user && (
+        <div className="profile-card">
+          <img src={user.avatar_url} alt={user.login} />
+          <h2 className="user-name">{user.name || user.login}</h2>
+          <p>{user.bio}</p>
+          <p>Followers: {user.followers} | Following: {user.following}</p>
+          <p>Public Repos: {user.public_repos}</p>
+        </div>
       )}
 
-      <ul>
-        {repos.map(repo => (
-          <li key={repo.id}>
-            <a href={repo.url} target="_blank" rel="noopener noreferrer">
-              {repo.name}
-            </a>
-            {repo.description && <p>{repo.description}</p>}
-            {repo.language && <span> .{repo.language} </span>}
-            {repo.stargazers_count > 0 && <span>☆ {repo.stargazers_count}</span>}
-          </li>
-        ))}
-      </ul>
-    </>
-    )}
+      {user && (
+        <>
+          <h2>Repositories</h2>
+          <ul className="repo-grid">
+            {repos.map(repo => (
+              <li key={repo.id} className="repo-card">
+                <div>
+                  <a href={repo.url} target="_blank" rel="noopener noreferrer">
+                    {repo.name}
+                  </a>
+                  {repo.description && <p>{repo.description}</p>}
+                </div>
+                <div className="repo-meta">
+                  {repo.language && <span>{repo.language}</span>}
+                  {repo.stargazers_count > 0 && <span>⭐ {repo.stargazers_count}</span>}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 }

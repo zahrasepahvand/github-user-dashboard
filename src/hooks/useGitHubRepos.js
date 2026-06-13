@@ -32,24 +32,20 @@ export function useGitHubRepos(username) {
     }
     
     const controller = new AbortController();
-    let cancelled = false;
     
     dispatch({ type: 'FETCH_START' }); 
     
     fetchUserRepositories(username, { signal: controller.signal })
       .then(data => {
-        if (!cancelled) {
-          dispatch({ type: 'FETCH_SUCCESS', payload: data }); 
-        }
+        dispatch({ type: 'FETCH_SUCCESS', payload: data }); 
       })
       .catch(err => {
-        if (!cancelled && err.name !== 'AbortError') {
+        if ( err.name !== 'AbortError') {
           dispatch({ type: 'FETCH_ERROR', payload: err.message }); 
         }
       });
     
     return () => {
-      cancelled = true;
       controller.abort();
     };
   }, [username]);
